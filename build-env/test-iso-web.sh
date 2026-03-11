@@ -51,13 +51,21 @@ if [ ! -f "$TEST_HDD" ]; then
     qemu-img create -f qcow2 "$TEST_HDD" 20G
 fi
 
+# Check if KVM is available
+if [ -c /dev/kvm ] && [ -w /dev/kvm ]; then
+    ACCEL="-enable-kvm -cpu host"
+    echo -e "${GREEN}✓ Hardware acceleration (KVM) enabled${RESET}"
+else
+    ACCEL="-machine accel=tcg -cpu max"
+    echo -e "${YELLOW}⚠️ Hardware acceleration (KVM) unavailable. Falling back to software virtualization (slower)...${RESET}"
+fi
+
 # 4. Start QEMU in background with VNC enabled
 echo -e "\n${YELLOW}Booting Thakran OS in 8-core / 16GB RAM Virtual Machine...${RESET}"
 qemu-system-x86_64 \
-    -enable-kvm \
+    $ACCEL \
     -m 16G \
     -smp 8 \
-    -cpu host \
     -vga virtio \
     -display vnc=127.0.0.1:0 \
     -cdrom "$ISO_PATH" \
