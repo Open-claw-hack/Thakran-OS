@@ -117,6 +117,17 @@ rclone config
 rclone copy installer/iso-builder/thakran-os-0.1.0-alpha-amd64.iso myremote:ThakranOS/
 ```
 
+#### Option E: Test Online (No Download) 🚀
+If you don't want to download the massive file, you can test it directly in the Codespace browser tab using our Web VNC Simulator!
+```bash
+# Inside the Codespace terminal:
+chmod +x build-env/test-iso-web.sh
+./build-env/test-iso-web.sh
+```
+1. Look at the VS Code terminal's **PORTS** tab.
+2. Click the globe/link icon 🌐 next to port **6080**.
+3. In the new browser tab, click **Connect** to see your OS running!
+
 ---
 
 ## GitHub Classroom Specific Instructions
