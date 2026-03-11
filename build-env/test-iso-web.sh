@@ -59,7 +59,7 @@ qemu-system-x86_64 \
     -machine accel=tcg \
     -m 16G \
     -smp 8 \
-    -vga virtio \
+    -vga std \
     -display vnc=127.0.0.1:0 \
     -cdrom "$ISO_PATH" \
     -drive file="$TEST_HDD",format=qcow2,if=virtio \
