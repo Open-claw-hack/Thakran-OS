@@ -69,7 +69,7 @@ qemu-system-x86_64 \
     -net nic -net user \
     -daemonize
 
-# 5. Start noVNC bridge
+# 5. Start noVNC bridge (This is the one we want Codespaces to forward)
 echo -e "${YELLOW}Starting Web Server...${RESET}"
 websockify --web=/usr/share/novnc/ 6080 127.0.0.1:5900 > /dev/null 2>&1 &
 
@@ -79,8 +79,8 @@ echo -e "\n${GREEN}════════════════════�
 echo -e "${GREEN}  ✅ Virtual Machine is Running!${RESET}"
 echo -e "${GREEN}════════════════════════════════════════════════════════════════════${RESET}"
 echo -e "\n${CYAN}To view Thakran OS:${RESET}"
-echo -e "1. Look at the VS Code terminal's ${YELLOW}'PORTS'${RESET} tab (next to Terminal/Output)."
-echo -e "2. You should see port ${YELLOW}6080${RESET} forwarded."
+echo -e "1. Look at the VS Code terminal's ${YELLOW}'PORTS'${RESET} tab."
+echo -e "2. Find the port named ${YELLOW}6080${RESET} (Ignore port 5900 if it appears)."
 echo -e "3. Click the globe/link icon 🌐 next to port 6080 to open it in your browser."
 echo -e "4. In the browser, click ${YELLOW}'Connect'${RESET} (Password is empty)."
 echo ""
