@@ -73,7 +73,20 @@ fi
 # ─── 1. Install Host Build Dependencies ────────────────────────────────────
 step_header 1 "Installing build dependencies..."
 
-apt-get update -qq
+# Remove broken third-party repos that come pre-installed in Codespaces
+# (yarn, docker, etc. often have expired/missing GPG keys)
+echo -e "${CYAN}  Cleaning up broken Codespace repos...${RESET}"
+rm -f /etc/apt/sources.list.d/yarn.list 2>/dev/null || true
+rm -f /etc/apt/sources.list.d/docker.list 2>/dev/null || true
+rm -f /etc/apt/sources.list.d/github-cli.list 2>/dev/null || true
+# Disable any other problematic third-party sources
+for f in /etc/apt/sources.list.d/*.list; do
+    if [ -f "$f" ] && grep -qiE "yarnpkg|docker\.com|packages\.microsoft" "$f" 2>/dev/null; then
+        mv "$f" "${f}.disabled" 2>/dev/null || true
+    fi
+done
+
+apt-get update -qq 2>/dev/null || apt-get update -qq --allow-releaseinfo-change 2>/dev/null || true
 apt-get install -y --no-install-recommends \
     debootstrap \
     squashfs-tools \
