@@ -1,0 +1,37 @@
+# ============================================================================
+# Thakran OS — Systemd Service: Desktop Shell
+# ============================================================================
+# Launches the Thakran Desktop Shell (Wayland compositor + UI shell).
+# ============================================================================
+
+[Unit]
+Description=Thakran Desktop Shell
+Documentation=https://thakranos.dev/docs/desktop
+After=graphical.target thakran-aid.service
+Wants=thakran-aid.service
+ConditionPathExists=/usr/lib/thakran/desktop/compositor
+
+[Service]
+Type=simple
+User=%I
+ExecStart=/usr/lib/thakran/desktop/start-shell.sh
+ExecStop=/usr/lib/thakran/desktop/stop-shell.sh
+Restart=on-failure
+RestartSec=2
+
+# Environment
+Environment=WAYLAND_DISPLAY=wayland-1
+Environment=XDG_SESSION_TYPE=wayland
+Environment=QT_QPA_PLATFORM=wayland
+Environment=MOZ_ENABLE_WAYLAND=1
+Environment=THAKRAN_AI_SOCKET=/run/thakran/ai.sock
+
+# GPU access
+SupplementaryGroups=video render input
+
+StandardOutput=journal
+StandardError=journal
+SyslogIdentifier=thakran-shell
+
+[Install]
+WantedBy=graphical.target

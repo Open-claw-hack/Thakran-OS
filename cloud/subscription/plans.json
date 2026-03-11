@@ -1,0 +1,85 @@
+{
+  "version": "1.0.0",
+  "plans": [
+    {
+      "id": "free",
+      "name": "Free",
+      "price_monthly": 0,
+      "price_yearly": 0,
+      "currency": "USD",
+      "features": {
+        "local_ai": true,
+        "local_models": ["thakran-tiny", "thakran-mini", "thakran-standard", "thakran-embed", "thakran-whisper"],
+        "cloud_ai": false,
+        "cloud_models": [],
+        "max_devices": 1,
+        "model_fine_tuning": false,
+        "priority_updates": false,
+        "support": "community",
+        "storage_gb": 0,
+        "api_requests_per_day": 0
+      },
+      "description": "Full local AI experience, completely free. All processing on your hardware."
+    },
+    {
+      "id": "pro",
+      "name": "Pro",
+      "price_monthly": 9.99,
+      "price_yearly": 99.99,
+      "currency": "USD",
+      "features": {
+        "local_ai": true,
+        "local_models": ["thakran-tiny", "thakran-mini", "thakran-standard", "thakran-pro", "thakran-embed", "thakran-whisper", "thakran-vision"],
+        "cloud_ai": true,
+        "cloud_models": ["gpt-4o", "claude-sonnet", "gemini-pro"],
+        "max_devices": 3,
+        "model_fine_tuning": false,
+        "priority_updates": true,
+        "support": "email",
+        "storage_gb": 50,
+        "api_requests_per_day": 1000
+      },
+      "description": "Local + Cloud AI with access to frontier models like GPT-4 and Claude."
+    },
+    {
+      "id": "team",
+      "name": "Team",
+      "price_monthly": 24.99,
+      "price_yearly": 249.99,
+      "currency": "USD",
+      "features": {
+        "local_ai": true,
+        "local_models": ["thakran-tiny", "thakran-mini", "thakran-standard", "thakran-pro", "thakran-ultra", "thakran-embed", "thakran-whisper", "thakran-vision"],
+        "cloud_ai": true,
+        "cloud_models": ["gpt-4o", "claude-sonnet", "claude-opus", "gemini-pro", "gemini-ultra"],
+        "max_devices": 10,
+        "model_fine_tuning": true,
+        "priority_updates": true,
+        "support": "priority",
+        "storage_gb": 500,
+        "api_requests_per_day": 10000
+      },
+      "description": "Everything in Pro + custom model training, team sync, and unlimited frontier models."
+    },
+    {
+      "id": "enterprise",
+      "name": "Enterprise",
+      "price_monthly": -1,
+      "price_yearly": -1,
+      "currency": "USD",
+      "features": {
+        "local_ai": true,
+        "local_models": "all",
+        "cloud_ai": true,
+        "cloud_models": "all",
+        "max_devices": -1,
+        "model_fine_tuning": true,
+        "priority_updates": true,
+        "support": "dedicated",
+        "storage_gb": -1,
+        "api_requests_per_day": -1
+      },
+      "description": "Custom deployment, dedicated infrastructure, SLA, and enterprise support. Contact sales."
+    }
+  ]
+}

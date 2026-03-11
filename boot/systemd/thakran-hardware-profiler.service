@@ -1,0 +1,34 @@
+# ============================================================================
+# Thakran OS — Systemd Service: Hardware Profiler
+# ============================================================================
+# Runs at boot to detect and profile hardware capabilities.
+# Results are used by the AI daemon for inference optimization.
+# ============================================================================
+
+[Unit]
+Description=Thakran Hardware Profiler
+Documentation=https://thakranos.dev/docs/hardware-profiler
+DefaultDependencies=no
+After=sysinit.target
+Before=thakran-aid.service
+
+[Service]
+Type=oneshot
+RemainAfterExit=yes
+ExecStart=/usr/lib/thakran/hardware/profiler.sh
+ExecStartPost=/usr/lib/thakran/hardware/optimize.sh
+
+# Write hardware profile
+ReadWritePaths=/var/lib/thakran/hardware
+
+# Security
+ProtectSystem=strict
+ProtectHome=yes
+PrivateTmp=yes
+NoNewPrivileges=yes
+
+StandardOutput=journal
+SyslogIdentifier=thakran-hwprof
+
+[Install]
+WantedBy=multi-user.target

@@ -1,0 +1,52 @@
+{
+  "marketplace": {
+    "version": "1.0",
+    "updated": "2026-03-07T12:00:00Z",
+    "featured": [
+      {
+        "id": "thakran-phi-3",
+        "name": "Thakran Nano (3.8B)",
+        "developer": "Thakran AI / Microsoft",
+        "size_mb": 2400,
+        "ram_required_gb": 4,
+        "description": "Ultra-fast optimized model for edge devices and older hardware.",
+        "url": "https://cdn.thakranos.com/models/phi-3-mini-4k-instruct.gguf",
+        "price": "free",
+        "downloads": 154200
+      },
+      {
+        "id": "thakran-llama-3-8b",
+        "name": "Thakran Standard (8B)",
+        "developer": "Thakran AI / Meta",
+        "size_mb": 4500,
+        "ram_required_gb": 8,
+        "description": "The perfect balance of reasoning speed and accuracy for daily desktop automation.",
+        "url": "https://cdn.thakranos.com/models/llama-3-8b-instruct.gguf",
+        "price": "free",
+        "downloads": 890500
+      },
+      {
+        "id": "thakran-dbrx-coder",
+        "name": "Thakran Coder Pro",
+        "developer": "Thakran AI / Databricks",
+        "size_mb": 18000,
+        "ram_required_gb": 24,
+        "description": "Massive Mixture-of-Experts (MoE) model specialized strictly for Python, C, and Rust development.",
+        "url": "https://cdn.thakranos.com/models/dbrx-coder.gguf",
+        "price": "pro_tier",
+        "downloads": 45000
+      },
+      {
+        "id": "thakran-vision-llava",
+        "name": "Thakran Vision Connector",
+        "developer": "Thakran AI",
+        "size_mb": 3100,
+        "ram_required_gb": 6,
+        "description": "Enables your OS to 'see'. Allows Thakran Assistant to analyze screenshots and local images.",
+        "url": "https://cdn.thakranos.com/models/llava-v1.5-7b.gguf",
+        "price": "free",
+        "downloads": 210000
+      }
+    ]
+  }
+}

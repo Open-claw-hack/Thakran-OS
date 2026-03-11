@@ -1,0 +1,94 @@
+# ============================================================================
+# Thakran AI Daemon — Configuration
+# ============================================================================
+# Global configuration for the thakran-aid service.
+# ============================================================================
+
+# ─── API Server ─────────────────────────────────────────────────────────────
+api:
+  host: "127.0.0.1"
+  port: 11434           # Default AI API port (Ollama-compatible)
+  socket: "/run/thakran/ai.sock"
+  cors_origins:
+    - "http://localhost:*"
+    - "thakran://*"
+  max_request_size: "50MB"
+  request_timeout: 120   # seconds
+
+# ─── Model Management ──────────────────────────────────────────────────────
+models:
+  default: "thakran-mini"     # Auto-loaded at startup
+  auto_load: true
+  model_dir: "/var/cache/thakran/models"
+  max_loaded_models: 2        # Max models in memory simultaneously
+  auto_unload_timeout: 300    # Unload idle models after 5 min
+
+  # Model download sources
+  registries:
+    - name: "Thakran Official"
+      url: "https://models.thakranos.dev/v1"
+      priority: 1
+    - name: "HuggingFace"
+      url: "https://huggingface.co"
+      priority: 2
+
+# ─── Hardware Optimization ──────────────────────────────────────────────────
+hardware:
+  auto_detect: true
+  device_preference: "auto"   # auto, cpu, cuda, rocm, vulkan, npu
+  
+  cpu:
+    threads: auto             # auto = (total_cores - 2)
+    use_mmap: true
+    use_mlock: false
+    batch_size: auto
+  
+  gpu:
+    layers: auto              # auto = all layers to GPU if VRAM allows
+    split_mode: "layer"       # layer, row, none
+    vram_reserve_mb: 512      # Keep 512MB free for display
+  
+  npu:
+    enabled: true
+    offload_small_models: true
+
+# ─── Performance ────────────────────────────────────────────────────────────
+performance:
+  max_concurrent_requests: 4
+  queue_size: 32
+  context_cache: true
+  flash_attention: true
+  quantization_preference: "Q4_K_M"  # Default quantization level
+
+# ─── Subscription / Cloud AI ───────────────────────────────────────────────
+cloud:
+  enabled: false
+  api_endpoint: "https://api.thakranos.dev/v1"
+  auth_token_path: "/var/lib/thakran/cloud/auth.token"
+  fallback_to_local: true     # Use local model if cloud is unavailable
+  models:
+    - "gpt-4o"
+    - "claude-sonnet"
+    - "gemini-pro"
+
+# ─── Logging ────────────────────────────────────────────────────────────────
+logging:
+  level: "info"               # debug, info, warning, error
+  file: "/var/log/thakran/ai-daemon.log"
+  max_size: "100MB"
+  max_files: 5
+  log_requests: false         # Log individual inference requests
+
+# ─── Security ──────────────────────────────────────────────────────────────
+security:
+  allowed_users:
+    - "root"
+    - "thakran-ai"
+  allowed_groups:
+    - "thakran-users"
+  sandbox_inference: true     # Run inference in sandboxed process
+  max_tokens_per_request: 4096
+  rate_limit:
+    enabled: true
+    requests_per_minute: 60
+    tokens_per_minute: 100000

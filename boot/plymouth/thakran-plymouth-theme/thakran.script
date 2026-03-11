@@ -1,0 +1,110 @@
+#!/bin/bash
+# ============================================================================
+# Thakran OS — Plymouth Boot Splash Theme
+# ============================================================================
+# Animated boot splash with Thakran OS branding.
+# Uses a pulsing logo animation with progress indicator.
+# ============================================================================
+
+# Plymouth theme script (plymouth .script format)
+# This is sourced by the Plymouth daemon during boot
+
+# ─── Background ────────────────────────────────────────────────────────────
+Window.SetBackgroundTopColor(0.04, 0.04, 0.10);
+Window.SetBackgroundBottomColor(0.02, 0.02, 0.06);
+
+# ─── Logo ──────────────────────────────────────────────────────────────────
+logo.image = Image("thakran-logo.png");
+logo.sprite = Sprite(logo.image);
+logo.sprite.SetX(Window.GetWidth() / 2 - logo.image.GetWidth() / 2);
+logo.sprite.SetY(Window.GetHeight() / 2 - logo.image.GetHeight() / 2 - 60);
+logo.opacity = 1.0;
+logo.pulse_direction = 1;
+
+# ─── Title Text ─────────────────────────────────────────────────────────────
+title.image = Image.Text("Thakran OS", 0.66, 0.33, 0.97, 1, "DejaVu Sans Bold 24");
+title.sprite = Sprite(title.image);
+title.sprite.SetX(Window.GetWidth() / 2 - title.image.GetWidth() / 2);
+title.sprite.SetY(Window.GetHeight() / 2 + 30);
+
+# ─── Subtitle ──────────────────────────────────────────────────────────────
+subtitle.image = Image.Text("Intelligence, Built In.", 0.55, 0.55, 0.62, 1, "DejaVu Sans 14");
+subtitle.sprite = Sprite(subtitle.image);
+subtitle.sprite.SetX(Window.GetWidth() / 2 - subtitle.image.GetWidth() / 2);
+subtitle.sprite.SetY(Window.GetHeight() / 2 + 65);
+
+# ─── Progress Bar ──────────────────────────────────────────────────────────
+progress_bar.original_image = Image("progress-bar.png");
+progress_bar.sprite = Sprite();
+progress_bar.sprite.SetY(Window.GetHeight() / 2 + 120);
+
+# ─── Spinner Dots ──────────────────────────────────────────────────────────
+NUM_DOTS = 5;
+dot_angle = 0;
+
+for (i = 0; i < NUM_DOTS; i++) {
+    dots[i].image = Image("dot.png");
+    dots[i].sprite = Sprite(dots[i].image);
+    dots[i].sprite.SetOpacity(0);
+}
+
+# ─── Animation Loop ────────────────────────────────────────────────────────
+fun refresh_callback() {
+    # Pulse the logo
+    logo.opacity += 0.02 * logo.pulse_direction;
+    if (logo.opacity >= 1.0) {
+        logo.pulse_direction = -1;
+        logo.opacity = 1.0;
+    }
+    if (logo.opacity <= 0.6) {
+        logo.pulse_direction = 1;
+        logo.opacity = 0.6;
+    }
+    logo.sprite.SetOpacity(logo.opacity);
+    
+    # Animate spinner dots
+    dot_angle += 0.05;
+    center_x = Window.GetWidth() / 2;
+    center_y = Window.GetHeight() / 2 + 150;
+    radius = 25;
+    
+    for (i = 0; i < NUM_DOTS; i++) {
+        angle = dot_angle + (i * 2 * 3.14159 / NUM_DOTS);
+        x = center_x + Math.Int(radius * Math.Cos(angle)) - dots[i].image.GetWidth() / 2;
+        y = center_y + Math.Int(radius * Math.Sin(angle)) - dots[i].image.GetHeight() / 2;
+        dots[i].sprite.SetX(x);
+        dots[i].sprite.SetY(y);
+        
+        # Fade dots based on position
+        opacity = 0.3 + 0.7 * ((Math.Cos(angle - dot_angle) + 1) / 2);
+        dots[i].sprite.SetOpacity(opacity);
+    }
+}
+
+Plymouth.SetRefreshFunction(refresh_callback);
+
+# ─── Boot Progress ─────────────────────────────────────────────────────────
+fun boot_progress_callback(duration, progress) {
+    if (progress_bar.original_image) {
+        width = Math.Int(progress_bar.original_image.GetWidth() * progress);
+        if (width > 0) {
+            cropped = progress_bar.original_image.Scale(width, progress_bar.original_image.GetHeight());
+            progress_bar.sprite.SetImage(cropped);
+            progress_bar.sprite.SetX(Window.GetWidth() / 2 - progress_bar.original_image.GetWidth() / 2);
+        }
+    }
+}
+
+Plymouth.SetBootProgressFunction(boot_progress_callback);
+
+# ─── Messages ──────────────────────────────────────────────────────────────
+message_sprite = Sprite();
+
+fun message_callback(text) {
+    msg_image = Image.Text(text, 0.55, 0.55, 0.62, 1, "DejaVu Sans 12");
+    message_sprite.SetImage(msg_image);
+    message_sprite.SetX(Window.GetWidth() / 2 - msg_image.GetWidth() / 2);
+    message_sprite.SetY(Window.GetHeight() - 50);
+}
+
+Plymouth.SetMessageFunction(message_callback);

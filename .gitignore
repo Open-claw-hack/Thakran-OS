@@ -1,0 +1,25 @@
+# ─── Build Artifacts (DO NOT PUSH) ─────────────────────────────
+build/
+*.iso
+*.img
+
+# ─── ISO Builder artifacts ─────────────────────────────────────
+installer/iso-builder/thakran-iso-root/
+installer/iso-builder/image/
+installer/iso-builder/*.iso
+installer/iso-builder/*.zip
+
+# ─── Temporary / OS files ──────────────────────────────────────
+*.pyc
+__pycache__/
+.DS_Store
+Thumbs.db
+Desktop.ini
+*.swp
+*.swo
+*~
+
+# ─── IDE ───────────────────────────────────────────────────────
+.vscode/
+.idea/
+*.code-workspace

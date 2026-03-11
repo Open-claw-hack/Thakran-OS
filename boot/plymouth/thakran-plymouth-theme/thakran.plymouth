@@ -1,0 +1,8 @@
+[Plymouth Theme]
+Name=Thakran OS
+Description=AI-Native Operating System Boot Splash
+ModuleName=script
+
+[script]
+ImageDir=/usr/share/plymouth/themes/thakran
+ScriptFile=/usr/share/plymouth/themes/thakran/thakran.script

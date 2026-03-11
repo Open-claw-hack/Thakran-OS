@@ -1,0 +1,45 @@
+# ============================================================================
+# Thakran OS — Systemd Service: AI Core Daemon (thakran-aid)
+# ============================================================================
+# The always-on AI service that powers local intelligence across the OS.
+# ============================================================================
+
+[Unit]
+Description=Thakran AI Core Daemon
+Documentation=https://thakranos.dev/docs/ai-daemon
+After=network-online.target graphical.target
+Wants=network-online.target
+Requires=thakran-hardware-profiler.service
+
+[Service]
+Type=notify
+ExecStartPre=/usr/lib/thakran/ai/check-hardware.sh
+ExecStart=/usr/lib/thakran/ai/thakran-aid --config /etc/thakran/ai/config.yaml
+ExecReload=/bin/kill -HUP $MAINPID
+Restart=on-failure
+RestartSec=5
+WatchdogSec=30
+
+# Resource limits
+MemoryMax=40%
+CPUQuota=80%
+IOWeight=200
+
+# Security hardening
+ProtectSystem=strict
+ProtectHome=read-only
+PrivateTmp=yes
+NoNewPrivileges=yes
+ReadWritePaths=/var/lib/thakran/ai /var/cache/thakran/models /tmp/thakran-ai
+AppArmorProfile=thakran-aid
+
+# GPU access
+SupplementaryGroups=video render
+
+# Logging
+StandardOutput=journal
+StandardError=journal
+SyslogIdentifier=thakran-aid
+
+[Install]
+WantedBy=multi-user.target

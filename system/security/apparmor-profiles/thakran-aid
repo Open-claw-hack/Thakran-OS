@@ -1,0 +1,74 @@
+# ============================================================================
+# Thakran OS — AppArmor Profile: AI Daemon
+# ============================================================================
+# Restricts the thakran-aid daemon to only access what it needs.
+# ============================================================================
+
+#include <tunables/global>
+
+profile thakran-aid /usr/lib/thakran/ai/thakran-aid {
+  #include <abstractions/base>
+  #include <abstractions/nameservice>
+  #include <abstractions/python>
+
+  # ─── Binary & Libraries ────────────────────────────
+  /usr/lib/thakran/ai/** r,
+  /usr/lib/thakran/ai/thakran-aid ix,
+  /usr/lib/python3/** r,
+  /usr/lib/x86_64-linux-gnu/** r,
+
+  # ─── AI Models (read-only) ─────────────────────────
+  /var/cache/thakran/models/ r,
+  /var/cache/thakran/models/** r,
+
+  # ─── AI Model Downloads (write) ────────────────────
+  /var/cache/thakran/models/** w,
+  /tmp/thakran-ai/** rw,
+
+  # ─── Configuration ─────────────────────────────────
+  /etc/thakran/ai/ r,
+  /etc/thakran/ai/** r,
+
+  # ─── Data & State ──────────────────────────────────
+  /var/lib/thakran/ai/ rw,
+  /var/lib/thakran/ai/** rw,
+  /var/lib/thakran/hardware/ r,
+  /var/lib/thakran/hardware/** r,
+
+  # ─── Logging ───────────────────────────────────────
+  /var/log/thakran/ rw,
+  /var/log/thakran/** rw,
+
+  # ─── Runtime ───────────────────────────────────────
+  /run/thakran/ rw,
+  /run/thakran/ai.sock rw,
+  /run/thakran/thakran-aid.pid rw,
+
+  # ─── GPU Access ────────────────────────────────────
+  /dev/dri/ r,
+  /dev/dri/** rw,
+  /dev/nvidia* rw,
+  /dev/nvidiactl rw,
+  /dev/nvidia-uvm rw,
+  /dev/accel/ r,
+  /dev/accel/** rw,
+
+  # ─── Networking (API server) ───────────────────────
+  network inet stream,
+  network inet6 stream,
+  network unix stream,
+
+  # ─── Proc & Sys (hardware info) ────────────────────
+  /proc/cpuinfo r,
+  /proc/meminfo r,
+  /proc/self/** r,
+  /sys/class/drm/** r,
+  /sys/devices/** r,
+
+  # ─── Deny dangerous access ────────────────────────
+  deny /etc/shadow r,
+  deny /etc/passwd w,
+  deny /home/** w,
+  deny /root/** rw,
+  deny /boot/** w,
+}

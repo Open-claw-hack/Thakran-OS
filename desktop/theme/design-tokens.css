@@ -1,0 +1,302 @@
+/* ============================================================================
+ * Thakran OS — Design System Tokens
+ * ============================================================================
+ * The foundational design system for the Thakran desktop environment.
+ * All UI components reference these tokens for consistent styling.
+ * 
+ * Design philosophy:
+ *   - Dark-first with optional light mode
+ *   - Glassmorphic surfaces with depth
+ *   - Purple/violet accent (brand identity)
+ *   - Smooth, purposeful animations
+ *   - Accessible contrast ratios (WCAG AA minimum)
+ * ============================================================================ */
+
+:root {
+  /* ─── Brand Colors ──────────────────────────────────────────────────── */
+  --thakran-purple:       #a855f7;
+  --thakran-purple-light: #c084fc;
+  --thakran-purple-dark:  #7c3aed;
+  --thakran-purple-glow:  rgba(168, 85, 247, 0.3);
+  
+  --thakran-blue:         #6366f1;
+  --thakran-blue-light:   #818cf8;
+  --thakran-cyan:         #22d3ee;
+  --thakran-pink:         #ec4899;
+  --thakran-orange:       #f97316;
+  --thakran-green:        #22c55e;
+  --thakran-red:          #ef4444;
+  --thakran-yellow:       #eab308;
+
+  /* ─── Neutral Palette (Dark Mode — Default) ────────────────────────── */
+  --bg-primary:           #0a0a1a;
+  --bg-secondary:         #111128;
+  --bg-tertiary:          #1a1a3e;
+  --bg-surface:           rgba(26, 26, 62, 0.6);
+  --bg-surface-hover:     rgba(26, 26, 62, 0.8);
+  --bg-elevated:          rgba(35, 35, 80, 0.8);
+  
+  --text-primary:         #f0f0f8;
+  --text-secondary:       #a0a0c0;
+  --text-tertiary:        #6b6b8e;
+  --text-inverse:         #0a0a1a;
+  
+  --border-default:       rgba(255, 255, 255, 0.08);
+  --border-hover:         rgba(255, 255, 255, 0.15);
+  --border-focus:         var(--thakran-purple);
+  --border-accent:        rgba(168, 85, 247, 0.3);
+
+  /* ─── Glass Effects ────────────────────────────────────────────────── */
+  --glass-bg:             rgba(15, 15, 35, 0.65);
+  --glass-bg-hover:       rgba(15, 15, 35, 0.80);
+  --glass-border:         rgba(255, 255, 255, 0.06);
+  --glass-blur:           20px;
+  --glass-blur-heavy:     40px;
+  
+  /* ─── Shadows & Depth ──────────────────────────────────────────────── */
+  --shadow-sm:            0 1px 3px rgba(0, 0, 0, 0.3);
+  --shadow-md:            0 4px 12px rgba(0, 0, 0, 0.4);
+  --shadow-lg:            0 8px 32px rgba(0, 0, 0, 0.5);
+  --shadow-xl:            0 16px 48px rgba(0, 0, 0, 0.6);
+  --shadow-glow:          0 0 20px var(--thakran-purple-glow);
+  --shadow-glow-subtle:   0 0 10px rgba(168, 85, 247, 0.15);
+  
+  /* ─── Typography ───────────────────────────────────────────────────── */
+  --font-primary:         'Inter', 'SF Pro Display', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-mono:            'JetBrains Mono', 'Fira Code', 'Cascadia Code', monospace;
+  --font-display:         'Outfit', 'Inter', sans-serif;
+  
+  --text-xs:              0.75rem;     /* 12px */
+  --text-sm:              0.875rem;    /* 14px */
+  --text-base:            1rem;        /* 16px */
+  --text-lg:              1.125rem;    /* 18px */
+  --text-xl:              1.25rem;     /* 20px */
+  --text-2xl:             1.5rem;      /* 24px */
+  --text-3xl:             1.875rem;    /* 30px */
+  --text-4xl:             2.25rem;     /* 36px */
+  
+  --leading-tight:        1.25;
+  --leading-normal:       1.5;
+  --leading-relaxed:      1.75;
+  
+  --weight-regular:       400;
+  --weight-medium:        500;
+  --weight-semibold:      600;
+  --weight-bold:          700;
+
+  /* ─── Spacing ──────────────────────────────────────────────────────── */
+  --space-1:              0.25rem;     /* 4px */
+  --space-2:              0.5rem;      /* 8px */
+  --space-3:              0.75rem;     /* 12px */
+  --space-4:              1rem;        /* 16px */
+  --space-5:              1.25rem;     /* 20px */
+  --space-6:              1.5rem;      /* 24px */
+  --space-8:              2rem;        /* 32px */
+  --space-10:             2.5rem;      /* 40px */
+  --space-12:             3rem;        /* 48px */
+  --space-16:             4rem;        /* 64px */
+
+  /* ─── Border Radius ────────────────────────────────────────────────── */
+  --radius-sm:            4px;
+  --radius-md:            8px;
+  --radius-lg:            12px;
+  --radius-xl:            16px;
+  --radius-2xl:           24px;
+  --radius-full:          9999px;
+
+  /* ─── Transitions & Animation ──────────────────────────────────────── */
+  --duration-instant:     50ms;
+  --duration-fast:        150ms;
+  --duration-normal:      250ms;
+  --duration-slow:        400ms;
+  --duration-slower:      600ms;
+  
+  --ease-default:         cubic-bezier(0.4, 0, 0.2, 1);
+  --ease-in:              cubic-bezier(0.4, 0, 1, 1);
+  --ease-out:             cubic-bezier(0, 0, 0.2, 1);
+  --ease-bounce:          cubic-bezier(0.34, 1.56, 0.64, 1);
+  --ease-spring:          cubic-bezier(0.175, 0.885, 0.32, 1.275);
+
+  /* ─── Z-Index Scale ────────────────────────────────────────────────── */
+  --z-base:               0;
+  --z-dropdown:           10;
+  --z-sticky:             20;
+  --z-fixed:              30;
+  --z-overlay:            40;
+  --z-modal:              50;
+  --z-popover:            60;
+  --z-tooltip:            70;
+  --z-notification:       80;
+  --z-panel:              90;
+  --z-max:                100;
+
+  /* ─── Desktop-Specific ─────────────────────────────────────────────── */
+  --panel-height:         48px;
+  --panel-bg:             var(--glass-bg);
+  --panel-blur:           var(--glass-blur-heavy);
+  --dock-height:          64px;
+  --sidebar-width:        280px;
+  --window-header-height: 36px;
+  --window-radius:        var(--radius-lg);
+}
+
+/* ─── Light Mode Override ──────────────────────────────────────────────── */
+[data-theme="light"] {
+  --bg-primary:           #f5f5f8;
+  --bg-secondary:         #eeeef2;
+  --bg-tertiary:          #e4e4ea;
+  --bg-surface:           rgba(255, 255, 255, 0.80);
+  --bg-surface-hover:     rgba(255, 255, 255, 0.95);
+  --bg-elevated:          rgba(255, 255, 255, 0.90);
+  
+  --text-primary:         #0f172a;
+  --text-secondary:       #475569;
+  --text-tertiary:        #94a3b8;
+  --text-inverse:         #f0f0f8;
+  
+  --border-default:       rgba(0, 0, 0, 0.08);
+  --border-hover:         rgba(0, 0, 0, 0.15);
+  
+  --glass-bg:             rgba(255, 255, 255, 0.70);
+  --glass-bg-hover:       rgba(255, 255, 255, 0.85);
+  --glass-border:         rgba(0, 0, 0, 0.06);
+  
+  --shadow-sm:            0 1px 3px rgba(0, 0, 0, 0.08);
+  --shadow-md:            0 4px 12px rgba(0, 0, 0, 0.10);
+  --shadow-lg:            0 8px 32px rgba(0, 0, 0, 0.12);
+}
+
+/* ─── Utility Classes ────────────────────────────────────────────────────── */
+
+/* Glass surface */
+.thakran-glass {
+  background: var(--glass-bg);
+  backdrop-filter: blur(var(--glass-blur));
+  -webkit-backdrop-filter: blur(var(--glass-blur));
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-lg);
+}
+
+.thakran-glass:hover {
+  background: var(--glass-bg-hover);
+}
+
+/* Panel glass (heavier blur) */
+.thakran-panel-glass {
+  background: var(--panel-bg);
+  backdrop-filter: blur(var(--panel-blur));
+  -webkit-backdrop-filter: blur(var(--panel-blur));
+  border-bottom: 1px solid var(--glass-border);
+}
+
+/* Glow accent */
+.thakran-glow {
+  box-shadow: var(--shadow-glow);
+}
+
+.thakran-glow-subtle {
+  box-shadow: var(--shadow-glow-subtle);
+}
+
+/* Text styles */
+.thakran-heading {
+  font-family: var(--font-display);
+  font-weight: var(--weight-bold);
+  color: var(--text-primary);
+  line-height: var(--leading-tight);
+}
+
+.thakran-body {
+  font-family: var(--font-primary);
+  font-weight: var(--weight-regular);
+  color: var(--text-secondary);
+  line-height: var(--leading-normal);
+}
+
+.thakran-mono {
+  font-family: var(--font-mono);
+  font-size: var(--text-sm);
+}
+
+/* Smooth transitions */
+.thakran-transition {
+  transition: all var(--duration-normal) var(--ease-default);
+}
+
+.thakran-transition-fast {
+  transition: all var(--duration-fast) var(--ease-default);
+}
+
+/* AI Status indicator */
+.thakran-ai-pulse {
+  animation: ai-pulse 2s ease-in-out infinite;
+}
+
+@keyframes ai-pulse {
+  0%, 100% { 
+    box-shadow: 0 0 4px var(--thakran-purple-glow);
+    opacity: 1;
+  }
+  50% { 
+    box-shadow: 0 0 16px var(--thakran-purple-glow);
+    opacity: 0.8;
+  }
+}
+
+/* Window animation */
+@keyframes window-open {
+  from {
+    opacity: 0;
+    transform: scale(0.95) translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+@keyframes window-close {
+  from {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+  to {
+    opacity: 0;
+    transform: scale(0.95) translateY(10px);
+  }
+}
+
+.thakran-window-open {
+  animation: window-open var(--duration-normal) var(--ease-spring);
+}
+
+.thakran-window-close {
+  animation: window-close var(--duration-fast) var(--ease-in);
+}
+
+/* Notification slide-in */
+@keyframes notification-in {
+  from {
+    opacity: 0;
+    transform: translateX(100%);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.thakran-notification-enter {
+  animation: notification-in var(--duration-slow) var(--ease-spring);
+}
+
+/* Reduce motion preference */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
