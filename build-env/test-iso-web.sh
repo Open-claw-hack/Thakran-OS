@@ -35,10 +35,10 @@ fi
 
 echo -e "${GREEN}✓ Found ISO: $(basename "$ISO_PATH")${RESET}"
 
-# 1. Install QEMU and noVNC
+# 1. Install QEMU and noVNC (adding OVMF for UEFI support)
 echo -e "\n${YELLOW}Setting up QEMU and Web VNC server...${RESET}"
 sudo apt-get update -qq
-sudo apt-get install -y --no-install-recommends qemu-system-x86 qemu-utils novnc websockify net-tools 2>/dev/null
+sudo apt-get install -y --no-install-recommends qemu-system-x86 qemu-utils novnc websockify net-tools ovmf 2>/dev/null
 
 # 2. Kill existing sessions
 sudo pkill -f qemu-system-x86_64 || true
@@ -53,10 +53,11 @@ fi
 
 # 4. Start QEMU in background with VNC enabled
 # In GitHub Codespaces, hardware acceleration (KVM) is blocked.
-# We MUST use software virtualization (TCG).
-echo -e "\n${YELLOW}Booting Thakran OS in 8-core / 16GB RAM Virtual Machine (Software Mode)...${RESET}"
+# We use software virtualization (TCG) + OVMF (UEFI firmware) for reliable ISO boot
+echo -e "\n${YELLOW}Booting Thakran OS in 8-core / 16GB RAM Virtual Machine (Software UEFI Mode)...${RESET}"
 qemu-system-x86_64 \
     -machine accel=tcg \
+    -bios /usr/share/ovmf/OVMF.fd \
     -m 16G \
     -smp 8 \
     -vga std \
