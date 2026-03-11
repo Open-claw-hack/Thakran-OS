@@ -34,7 +34,7 @@ ISO_OUTPUT="$PROJECT_ROOT/installer/iso-builder/${OS_NAME}-${VERSION}-${ARCH}.is
 COMP_ALGO="zstd"
 COMP_OPTS="-Xcompression-level 19"
 BLOCK_SIZE="1048576"
-PROCESSORS="0"
+PROCESSORS=$(nproc)
 
 # Terminal colors
 RED='\033[1;31m'
