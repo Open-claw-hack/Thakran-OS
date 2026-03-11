@@ -279,9 +279,12 @@ export QT_QPA_PLATFORM=wayland
 export MOZ_ENABLE_WAYLAND=1
 export THAKRAN_AI_SOCKET=/run/thakran/ai.sock
 
+# Software rendering fallback (CRITICAL for QEMU/VirtualBox)
 export WLR_RENDERER=pixman
 export WLR_NO_HARDWARE_CURSORS=1
 export LIBGL_ALWAYS_SOFTWARE=1
+export XWAYLAND_NO_GLAMOR=1
+export WLR_BACKENDS=drm,libinput
 
 mkdir -p "$HOME/.config/labwc"
 
